@@ -1,4 +1,4 @@
-package com.healthStatus.dtos;
+package com.healthStatus.dtos.question;
 
 import com.healthStatus.entities.enums.QuestionType;
 
@@ -7,9 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class QuestionDto {
-
-	private Long id;
+public class QuestionRequestDto {
 
 	private String title;
 

@@ -6,7 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 
-import com.healthStatus.dtos.QuestionDto;
+import com.healthStatus.dtos.question.QuestionRequestDto;
+import com.healthStatus.dtos.question.QuestionResponseDto;
 import com.healthStatus.entities.Question;
 import com.healthStatus.entities.enums.QuestionType;
 import com.healthStatus.factory.ModelMapperFactory;
@@ -14,7 +15,7 @@ import com.healthStatus.factory.ModelMapperFactory;
 public class QuestionDtoTest {
 
 	@Test
-	@DisplayName("Conversão de Question para QuestionDto")
+	@DisplayName("Conversão de Question para QuestionResponseDto")
 	void questionToDto() throws Exception {
 		ModelMapper mapper = new ModelMapperFactory().getModelMapper();
 
@@ -23,7 +24,7 @@ public class QuestionDtoTest {
 		question.setTitle("Test");
 		question.setType(QuestionType.TEXT);
 
-		QuestionDto dto = mapper.map(question, QuestionDto.class);
+		QuestionResponseDto dto = mapper.map(question, QuestionResponseDto.class);
 
 		assertEquals(question.getId(), dto.getId());
 		assertEquals(question.getTitle(), dto.getTitle());
@@ -32,18 +33,16 @@ public class QuestionDtoTest {
 	}
 
 	@Test
-	@DisplayName("Conversão de QuestionDto para Question")
+	@DisplayName("Conversão de QuestionRequestDto para Question")
 	void dtoToQuestion() throws Exception {
 		ModelMapper mapper = new ModelMapperFactory().getModelMapper();
 
-		QuestionDto dto = new QuestionDto();
-		dto.setId(1l);
+		QuestionRequestDto dto = new QuestionRequestDto();
 		dto.setTitle("Test");
 		dto.setType(QuestionType.TEXT);
 
 		Question question = mapper.map(dto, Question.class);
 
-		assertEquals(dto.getId(), question.getId());
 		assertEquals(dto.getTitle(), question.getTitle());
 		assertEquals(dto.getType(), question.getType());
 
