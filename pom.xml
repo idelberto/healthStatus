@@ -25,6 +25,9 @@
 		<!-- Javax -->
 		<javax.validation.version>2.0.1.Final</javax.validation.version>
 
+		<!-- Postgres -->
+		<postgres.version>42.2.12</postgres.version>
+
 		<!-- Liquibase -->
 		<liquibase.maven.plugin.version>3.9.0</liquibase.maven.plugin.version>
 		<liquibase.hibernate5.version>3.8</liquibase.hibernate5.version>
@@ -56,16 +59,23 @@
 		</dependency>
 
 		<!-- Database -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>com.h2database</groupId> -->
+		<!-- <artifactId>h2</artifactId> -->
+		<!-- <scope>runtime</scope> -->
+		<!-- </dependency> -->
 
+		<!-- <dependency> -->
+		<!-- <groupId>mysql</groupId> -->
+		<!-- <artifactId>mysql-connector-java</artifactId> -->
+		<!-- <scope>runtime</scope> -->
+		<!-- </dependency> -->
+
+		<!-- Postgres -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgres.version}</version>
 		</dependency>
 
 		<!-- Lombok -->
@@ -114,13 +124,14 @@
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>${liquibase.maven.plugin.version}</version>
 				<configuration>
-					<changeLogFile>src/main/resources/db/changelog/db.changelog-master.xml</changeLogFile>
-					<url>jdbc:mysql://localhost:3307/liquibase</url>
-					<username>root</username>
-					<password>root</password>
-					<driver>com.mysql.cj.jdbc.Driver</driver>
-					<outputChangeLogFile>src/main/resources/db/outputChangeLog/liquibase-outputChangeLog.xml</outputChangeLogFile>
-					<referenceUrl>hibernate:spring:com.healthStatus.entities?dialect=org.hibernate.dialect.MySQLDialect</referenceUrl>
+					<!-- Precisamos usar o arquivo de properties pq o hibernate extensio 
+						usa o Name Strategy da tabela ofical do JPA, ou seja, igual ao nome da classe 
+						para usar o do spring precisamos de uma configuracao a mais no referencesUrl, 
+						porem se passada no pom.xml da erro de conversão de xml então foi colocada 
+						no liquibase.properties -->
+					<propertyFile>src/main/resources/liquibase.properties</propertyFile>
+					<!-- Fora do arquivo liquibase.properties pq precisa ser interpolado 
+						pela variavel do maven -->
 					<diffChangeLogFile>src/main/resources/db/diff/${maven.build.timestamp}-diff-changelog.xml</diffChangeLogFile>
 				</configuration>
 				<dependencies>
