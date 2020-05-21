@@ -7,11 +7,11 @@ docker run --name postgres-health-status -p 5432:5432 -e POSTGRES_PASSWORD=root 
 ## Para realizar o diff das entidades jpa e o banco
 `mvn liquibase:diff`
   
-Sempre q gerar um diff novo fazer a aplicação dele no banco, seja iniciando a aplicação ou rodando o comando
+Sempre q gerar um diff aplicar o change-log gerado banco, seja iniciando a aplicação ou rodando o comando
   
 `mvn liquibase:update`
   
-isso pq se vc gerar o diff 2 vezes sem aplicar no banco ele vai gerar arquivos repetidos que vão dar erro na migração depois
+Se vc gerar o diff 2 vezes sem aplicar o change-log gerado banco ele vai gerar arquivos repetidos que vão dar erro na migração depois
 
 ### Lombok
 Para aplicar o Lombok no STS veja o tutorial:
