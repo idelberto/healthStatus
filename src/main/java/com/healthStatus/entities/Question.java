@@ -20,22 +20,23 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Question implements Serializable {
+public class Question implements Serializable
+{
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long					id;
 
 	@Column(length = 100)
 	@NotNull
 	@NotEmpty
-	private String title;
+	private String					title;
 
 	@Column
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	private QuestionType type;
+	private QuestionType			type;
 
 }
