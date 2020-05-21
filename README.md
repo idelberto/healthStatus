@@ -1,5 +1,7 @@
 # healthStatus
 
+![Java 8 Maven Tests](https://github.com/idelberto/healthStatus/workflows/Java%208%20Maven%20Tests/badge.svg)
+
 ### Para provisionar um postgres via docker
 
 docker run --name postgres-health-status -p 5432:5432 -e POSTGRES_PASSWORD=root -d postgres
