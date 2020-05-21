@@ -1,5 +1,7 @@
 package com.healthStatus.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,7 +20,9 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Question {
+public class Question implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
