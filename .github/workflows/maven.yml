@@ -19,3 +19,12 @@ jobs:
     - name: Build with Maven
       #run: mvn -B package --file pom.xml
       run: mvn clean verify --file pom.xml
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v4
+      with:
+        author_name: Ian Vidinha
+        author_email: iancesarvidinharego@gmail.com
+        message: "Badges"
+        add: "*.svg"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
