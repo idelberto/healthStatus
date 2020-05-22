@@ -261,6 +261,26 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>com.sigpwned</groupId>
+				<artifactId>jacoco-badge-maven-plugin</artifactId>
+				<version>0.1.4</version>
+				<configuration>
+					<reportFile>${project.reporting.outputDirectory}/jacoco-merged-test-coverage-report/jacoco.csv</reportFile>
+					<passing>70</passing>
+					<metric>instruction</metric>
+				</configuration>
+				<executions>
+					<execution>
+						<id>generate-jacoco-badge</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>badge</goal> <!-- Generate a badge from a unified JaCoCo report -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
