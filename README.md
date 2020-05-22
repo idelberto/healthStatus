@@ -1,6 +1,7 @@
 # healthStatus
 
 ![Java 8 Maven Tests](https://github.com/idelberto/healthStatus/workflows/Java%208%20Maven%20Tests/badge.svg)
+![Test Covarage](https://raw.githubusercontent.com/idelberto/healthStatus/be83e89a15449b21433b7d3fb5739de5512bb4e5/jacoco.svg)
 
 ### Para provisionar um postgres via docker
 
