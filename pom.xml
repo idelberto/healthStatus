@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.7.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.healthStatus</groupId>
 	<artifactId>healthStatus</artifactId>
@@ -16,17 +17,35 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+
+		<!-- Spring -->
+		<spring.version>2.2.7.RELEASE</spring.version>
+		<spring.beans.version>5.2.6.RELEASE</spring.beans.version>
+
+		<!-- Javax -->
+		<javax.validation.version>2.0.1.Final</javax.validation.version>
+
+		<!-- DTO -->
+		<model.mapper.version>2.3.7</model.mapper.version>
+
+		<!-- Liquibase -->
+		<liquibase.maven.plugin.version>3.9.0</liquibase.maven.plugin.version>
+		<liquibase.hibernate5.version>3.8</liquibase.hibernate5.version>
 	</properties>
 
 	<dependencies>
+
+		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -38,21 +57,40 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- Postgres -->
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+
+		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- DTO -->
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>${model.mapper.version}</version>
+		</dependency>
+
+		<!-- Liquibase -->
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-maven-plugin</artifactId>
+			<version>${liquibase.maven.plugin.version}</version>
+		</dependency>
+
+		<!-- Tests -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -64,6 +102,12 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -71,6 +115,151 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- Liquibase -->
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>${liquibase.maven.plugin.version}</version>
+				<configuration>
+					<!-- Precisamos usar o arquivo de properties pq o hibernate extensio 
+						usa o Name Strategy da tabela ofical do JPA, ou seja, igual ao nome da classe 
+						para usar o do spring precisamos de uma configuracao a mais no referencesUrl, 
+						porem se passada no pom.xml da erro de conversão de xml então foi colocada 
+						no liquibase.properties -->
+					<propertyFile>src/main/resources/liquibase.properties</propertyFile>
+					<!-- Fora do arquivo liquibase.properties pq precisa ser interpolado 
+						pela variavel do maven -->
+					<diffChangeLogFile>src/main/resources/db/diff/${maven.build.timestamp}-diff-changelog.xml</diffChangeLogFile>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.liquibase.ext</groupId>
+						<artifactId>liquibase-hibernate5</artifactId>
+						<version>${liquibase.hibernate5.version}</version>
+					</dependency>
+
+					<dependency>
+						<groupId>org.springframework</groupId>
+						<artifactId>spring-beans</artifactId>
+						<version>${spring.beans.version}</version>
+					</dependency>
+
+					<dependency>
+						<groupId>org.springframework.data</groupId>
+						<artifactId>spring-data-jpa</artifactId>
+						<version>${spring.version}</version>
+					</dependency>
+
+					<dependency>
+						<groupId>javax.validation</groupId>
+						<artifactId>validation-api</artifactId>
+						<version>${javax.validation.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<!-- Tests -->
+			<plugin>
+				<!-- for unit tests -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>${surefire.jacoco.args}</argLine>
+					<excludes>
+						<exclude>**/*IT.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<!--for integrations tests -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<argLine>${failsafe.jacoco.args}</argLine>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.5</version>
+				<executions>
+					<execution>
+						<id>before-unit-test-execution</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<destFile>${project.build.directory}/jacoco-unit-tests.exec</destFile>
+							<propertyName>surefire.jacoco.args</propertyName>
+						</configuration>
+					</execution>
+					<execution>
+						<id>after-unit-test-execution</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<dataFile>${project.build.directory}/jacoco-unit-tests.exec</dataFile>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report</outputDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>before-integration-test-execution</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<destFile>${project.build.directory}/jacoco-integration-tests.exec</destFile>
+							<propertyName>failsafe.jacoco.args</propertyName>
+						</configuration>
+					</execution>
+					<execution>
+						<id>after-integration-test-execution</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<dataFile>${project.build.directory}/jacoco-integration-tests.exec</dataFile>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report</outputDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>merge-unit-and-integration</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>merge</goal>
+						</goals>
+						<configuration>
+							<fileSets>
+								<fileSet>
+									<directory>${project.build.directory}/</directory>
+									<includes>
+										<include>*.exec</include>
+									</includes>
+								</fileSet>
+							</fileSets>
+							<destFile>${project.build.directory}/merged.exec</destFile>
+						</configuration>
+					</execution>
+					<execution>
+						<id>create-merged-report</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<dataFile>${project.build.directory}/merged.exec</dataFile>
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-merged-test-coverage-report</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
