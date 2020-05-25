@@ -20,27 +20,24 @@ import com.healthStatus.services.QuestionService;
 
 @RestController
 @RequestMapping(path = "/v1/question")
-public class QuestionV1Controller implements QuestionController
+public class QuestionV1Controller
 {
 
 	@Autowired
 	private QuestionService service;
 
-	@Override
 	@PostMapping
 	public ResponseEntity<QuestionResponseDto> persist(@Valid @RequestBody QuestionRequestDto question)
 	{
 		return ResponseEntity.ok(service.persist(question));
 	}
 
-	@Override
 	@GetMapping
 	public ResponseEntity<List<QuestionResponseDto>> list()
 	{
 		return ResponseEntity.ok(service.list());
 	}
 
-	@Override
 	@PutMapping(path = "/{id}")
 	public ResponseEntity<QuestionResponseDto> update(@Valid @PathVariable("id") Long id, @RequestBody QuestionRequestDto question)
 	{
