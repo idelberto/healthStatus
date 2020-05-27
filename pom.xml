@@ -31,6 +31,10 @@
 		<!-- Liquibase -->
 		<liquibase.maven.plugin.version>3.9.0</liquibase.maven.plugin.version>
 		<liquibase.hibernate5.version>3.8</liquibase.hibernate5.version>
+		
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyy-MM-dd-HH-mm-ss</maven.build.timestamp.format>
+		
 	</properties>
 
 	<dependencies>
@@ -45,7 +49,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
-
+ 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -131,7 +135,7 @@
 					<propertyFile>src/main/resources/liquibase.properties</propertyFile>
 					<!-- Fora do arquivo liquibase.properties pq precisa ser interpolado 
 						pela variavel do maven -->
-					<diffChangeLogFile>src/main/resources/db/diff/${maven.build.timestamp}-diff-changelog.xml</diffChangeLogFile>
+					<diffChangeLogFile>src/main/resources/db/diff/${timestamp}-diff-changelog.xml</diffChangeLogFile>
 				</configuration>
 				<dependencies>
 					<dependency>
