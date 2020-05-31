@@ -21,7 +21,7 @@ public class ErrorResponseDto
 	public static class Builder
 	{
 
-		private String			message;
+		private String		message;
 
 		private ObjectError	objectError;
 

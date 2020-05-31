@@ -1,0 +1,156 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+	<changeSet author="beto (generated)" id="1590886636334-1">
+		<createTable tableName="state">
+			<column autoIncrement="true" name="id" type="BIGINT">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="statePK" />
+			</column>
+			<column name="abbreviation" type="VARCHAR(2)">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<!-- Criando um changeset manual para popular os dados de estados do brasil  -->
+	<changeSet author="beto (generated)" id="1590886636334-2">
+		<insert tableName="state">
+			<column name="id" 			value="12"/>
+			<column name="abbreviation" value="AC"/>
+			<column name="name" 		value="Acre"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="27"/>
+			<column name="abbreviation" value="AL"/>
+			<column name="name" 		value="Alagoas"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="13"/>
+			<column name="abbreviation" value="AM"/>
+			<column name="name" 		value="Amazonas"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="16"/>
+			<column name="abbreviation" value="AP"/>
+			<column name="name" 		value="Amapá"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="29"/>
+			<column name="abbreviation" value="BA"/>
+			<column name="name" 		value="Bahia"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="23"/>
+			<column name="abbreviation" value="CE"/>
+			<column name="name" 		value="Ceará"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="53"/>
+			<column name="abbreviation" value="DF"/>
+			<column name="name" 		value="Distrito Federal"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="32"/>
+			<column name="abbreviation" value="ES"/>
+			<column name="name" 		value="Espírito Santo"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="52"/>
+			<column name="abbreviation" value="GO"/>
+			<column name="name" 		value="Goiás"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="31"/>
+			<column name="abbreviation" value="MG"/>
+			<column name="name" 		value="Minas Gerais"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="50"/>
+			<column name="abbreviation" value="MS"/>
+			<column name="name" 		value="Mato Grosso do Sul"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="51"/>
+			<column name="abbreviation" value="MT"/>
+			<column name="name" 		value="Mato Grosso"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="15"/>
+			<column name="abbreviation" value="PA"/>
+			<column name="name" 		value="Pará"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="25"/>
+			<column name="abbreviation" value="PB"/>
+			<column name="name" 		value="Paraíba	"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="26"/>
+			<column name="abbreviation" value="PE"/>
+			<column name="name" 		value="Pernambuco"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="22"/>
+			<column name="abbreviation" value="PI"/>
+			<column name="name" 		value="Piauí"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="41"/>
+			<column name="abbreviation" value="PR"/>
+			<column name="name" 		value="Paraná"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="33"/>
+			<column name="abbreviation" value="RJ"/>
+			<column name="name" 		value="Rio de Janeiro"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="24"/>
+			<column name="abbreviation" value="RN"/>
+			<column name="name" 		value="Rio Grande do Norte"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="11"/>
+			<column name="abbreviation" value="RO"/>
+			<column name="name" 		value="Rondônia"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="14"/>
+			<column name="abbreviation" value="RR"/>
+			<column name="name" 		value="Roraima"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="43"/>
+			<column name="abbreviation" value="RS"/>
+			<column name="name" 		value="Rio Grande do Sul"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="42"/>
+			<column name="abbreviation" value="SC"/>
+			<column name="name" 		value="Santa Catarina"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="28"/>
+			<column name="abbreviation" value="SE"/>
+			<column name="name" 		value="Sergipe"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="35"/>
+			<column name="abbreviation" value="SP"/>
+			<column name="name" 		value="São Paulo"/>
+		</insert>
+		<insert tableName="state">
+			<column name="id" 			value="17"/>
+			<column name="abbreviation" value="TO"/>
+			<column name="name" 		value="Tocantins"/>
+		</insert>
+	</changeSet>
+</databaseChangeLog>
