@@ -14,7 +14,7 @@ class BaseIT
 {
 
 	@Autowired
-	protected MockMvc			mvc;
+	protected MockMvc		mvc;
 
 	@Autowired
 	protected ObjectMapper	objectMapper;
