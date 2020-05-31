@@ -8,7 +8,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.healthStatus.entities.State;
+import com.healthStatus.dtos.state.StateResponseDto;
 import com.healthStatus.repositories.StateRepository;
 
 @Service
@@ -20,10 +20,11 @@ public class StateService {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	public List<State> list() {
-		
-		return repository.findAll();
-				
+	public List<StateResponseDto> list() {
+		Type listType = new TypeToken<List<StateResponseDto>>() {
+		}.getType();
+
+		return modelMapper.map(repository.findAll(), listType);
 	}
 	
 }

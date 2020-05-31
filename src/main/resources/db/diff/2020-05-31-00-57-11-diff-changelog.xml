@@ -20,7 +20,7 @@
 		</createTable>
 	</changeSet>
 
-	<!-- Criando um changeset manual para popular os dados de estados do brasil  -->
+	<!-- Criando um changeset manual para popular os dados dos estados do brasil  -->
 	<changeSet author="beto (generated)" id="1590886636334-2">
 		<insert tableName="state">
 			<column name="id" 			value="12"/>

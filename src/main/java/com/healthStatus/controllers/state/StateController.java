@@ -2,26 +2,12 @@ package com.healthStatus.controllers.state;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.healthStatus.entities.State;
-import com.healthStatus.services.StateService;
+import com.healthStatus.dtos.state.StateResponseDto;
 
-@RequestMapping("/state")
-@RestController
-public class StateController {
+public interface StateController {
 	
-	@Autowired
-	StateService stateService;
-	
-	@GetMapping
-	public ResponseEntity<List<State>> list() 
-	{
-		return ResponseEntity.ok(stateService.list());
-	}
+	public ResponseEntity<List<StateResponseDto>> list();
 
 }
