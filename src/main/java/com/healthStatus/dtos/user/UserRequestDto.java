@@ -1,5 +1,7 @@
 package com.healthStatus.dtos.user;
 
+import java.util.Base64;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -19,5 +21,10 @@ public class UserRequestDto {
 
 	@NotNull
 	private String			password;
+	
+	public void setPassword(String password)
+	{
+		this.password = Base64.getEncoder().encodeToString(password.getBytes());
+	}
 
 }

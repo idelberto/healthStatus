@@ -48,5 +48,24 @@ public class UserService {
 		return modelMapper.map(user, UserResponseDto.class);
 
 	}
+	
+	public UserResponseDto loggedUser(UserRequestDto requestDto) {
+		
+		Type type = new TypeToken<UserResponseDto>() {
+		}.getType();
+
+		User user = repository.findLoggedUser(requestDto.getUserName(), requestDto.getPassword());
+		
+		if (user != null)
+		{
+			return modelMapper.map(user, type);
+		}
+		else
+		{
+			return null;
+		}
+			
+		
+	}
 
 }
