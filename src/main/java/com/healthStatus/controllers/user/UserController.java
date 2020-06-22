@@ -15,4 +15,6 @@ public interface UserController {
 
 	public ResponseEntity<UserResponseDto> update(Long id, UserRequestDto user);
 
+	public ResponseEntity<UserResponseDto> userLogin(String username ,String password);
+
 }
