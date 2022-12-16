@@ -20,7 +20,7 @@
 
 		<!-- Spring -->
 		<spring.version>2.2.7.RELEASE</spring.version>
-		<spring.beans.version>5.2.6.RELEASE</spring.beans.version>
+		<spring.beans.version>5.2.20.RELEASE</spring.beans.version>
 
 		<!-- Javax -->
 		<javax.validation.version>2.0.1.Final</javax.validation.version>
